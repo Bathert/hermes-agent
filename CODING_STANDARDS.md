@@ -2,9 +2,25 @@
 
 This is the implementation companion to [AGENTS.md](AGENTS.md), not startup context. Read the matching sections for code changes and reviews; read the applicable area `AGENTS.md` as well. For product intent and contribution decisions use the [contribution rubric](website/docs/developer-guide/contributing.md). For setup and the full test workflow use [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Task index
+
+Read the two common sections for every code change or review: [Before changing behavior](#before-changing-behavior) and [Structure and code shape](#structure-and-code-shape).
+
+Then read only the branches your task touches.
+
+| Task | Section |
+|---|---|
+| Provisioning the checkout, `scripts/check`, the pre-push hook | [Setup and checks](#setup-and-checks) |
+| Dependency, lockfile, Git URL, GitHub Actions or PM environment changes | [Dependencies](#dependencies) |
+| TypeScript, desktop, TUI or website UI work | [TypeScript](#typescript) |
+| Writing, moving or reviewing tests | [Tests](#tests) |
+| Merge readiness, salvage and invariant tests | [Delivery](#delivery) |
+
 ## Before changing behavior
 
 Reproduce the issue on current `main`, locate the failing path and check the intent/history before changing it. Fix the whole class, including sibling call paths. Prefer an existing extension point over a new manager, hook, or core tool. A new hook needs a concrete consumer; a setting belongs in `config.yaml` rather than a non-secret `.env` variable. Keep prompt caching and message-role alternation intact; never inject synthetic user messages mid-loop. A tool that depends on the active desktop/GUI session belongs in a session-selected toolset, not a process-wide environment gate. See [tools/AGENTS.md](tools/AGENTS.md).
+
+For a new capability, take the highest rung of the footprint ladder that solves it: extend existing code; a CLI command + skill; a service-gated tool (`check_fn` answers reachability or opt-in, never per-session surface); a plugin; an MCP server from the catalog; a new core tool last, only when it is fundamental, broadly useful and unreachable through terminal, file, search or browser tools. Extending before duplicating: when three or more open PRs cover one category, design the shared abstraction and make the existing built-in the first provider. See [contribution rubric](website/docs/developer-guide/contributing.md).
 
 ## Setup and checks
 

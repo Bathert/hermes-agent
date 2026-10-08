@@ -1,6 +1,6 @@
 # Hermes Agent — agent entry point
 
-For code, tests, dependencies or PR review, load [CODING_STANDARDS.md](CODING_STANDARDS.md); not for docs-only work. Read every matching area guide below.
+For code, tests, dependencies or PR review, load [CODING_STANDARDS.md](CODING_STANDARDS.md) and follow its task index; docs-only work needs none of it. Read every matching area guide below.
 
 ## Invariants
 
