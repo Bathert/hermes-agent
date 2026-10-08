@@ -16,6 +16,8 @@ Then read only the branches your task touches.
 | Writing, moving or reviewing tests | [Tests](#tests) |
 | Merge readiness, salvage and invariant tests | [Delivery](#delivery) |
 
+Root modules and other unlisted paths follow their area owner: `run_agent.py` → [agent](agent/AGENTS.md); `cli.py` → [hermes_cli](hermes_cli/AGENTS.md); `toolsets.py`, `model_tools.py` → [tools](tools/AGENTS.md); `hermes_state*.py`, `hermes_constants.py` → [Structure and code shape](#structure-and-code-shape); `pyproject.toml`, `uv.lock` → [pm](pm/AGENTS.md); the plugin loader → [plugins](plugins/AGENTS.md); web routers → [web](web/AGENTS.md); `agent/curator*.py` → [skills](skills/AGENTS.md). Read every matching area guide; overlapping routes apply together.
+
 ## Before changing behavior
 
 Reproduce the issue on current `main`, locate the failing path and check the intent/history before changing it. Fix the whole class, including sibling call paths. Prefer an existing extension point over a new manager, hook, or core tool. A new hook needs a concrete consumer; a setting belongs in `config.yaml` rather than a non-secret `.env` variable. Keep prompt caching and message-role alternation intact; never inject synthetic user messages mid-loop. A tool that depends on the active desktop/GUI session belongs in a session-selected toolset, not a process-wide environment gate. See [tools/AGENTS.md](tools/AGENTS.md).
